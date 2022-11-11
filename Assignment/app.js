@@ -41,10 +41,10 @@ const buyButtonElement = document.getElementById("buybtn");
 
 const loan = document.getElementById("loanbtn");
 loan.addEventListener("click", clicked);
-const total = userCredit * 2;
+
 function clicked() {
   prompt("Please enter an amount");
-  if ((total = bankLoan)) {
+  if (loan) {
     console.log("you can get loan");
   } else {
     alert("You cannot get a loan more than double of your bank balance.");
