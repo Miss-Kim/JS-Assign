@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Computer Store</title>
+    <!--here is bootstrap-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <!--here goes header-->
+        <nav class="navbar bg-light mb-3">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Komputer Store</span>
+          </div>
+        </nav>
+      </header>
+
+      <!--here goes main-->
+      <main>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/Bank.svg"
+                  class="card-img-top"
+                  alt="Bank Illustration"
+                />
+
+                <h5 id="person">JOE BANKER</h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">BALANCE</p>
+                  <p id="credit">200 KR</p>
+                </div>
+                <a href="#" id="loanbtn" class="btn btn-primary">GET A LOAN</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/work.svg"
+                  class="card-img-top"
+                  alt="Bank Illustration"
+                />
+
+                <h5 id="work">WORK</h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Pay</p>
+                  <p id="balance">0 Kr</p>
+                </div>
+                <a href="#" id="resetbtn" class="btn btn-primary">Bank</a>
+                <a href="#" id="wage" class="btn btn-primary">Work</a>
+              </div>
+            </div>
+          </div>
+
+          <!--computer selcetion-->
+          <div class="col-sm-4">
+            <div class="card mb-5">
+              <div class="card-body">
+                <img
+                  src="img/selection.svg"
+                  class="card-img-top"
+                  alt="Computer Selection Illustration"
+                />
+
+                <h5 id="selection">COMPUTER SELECTION</h5>
+
+                <select
+                  name="computerTypes"
+                  id="computers"
+                  class="form-select"
+                  aria-label="computer select"
+                ></select>
+                <p class="card-text">
+                  <!--specs here-->
+                  Features: it has a screen. <br />
+                  There is a keyboard. (some key may be missing)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--display computer informations -->
+
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 name="computer names" id="type" class="card-title">
+                Placeholder
+              </h5>
+              <div class="d-flex justify-content-between">
+                <img
+                  id="selectImg"
+                  src=""
+                  alt="Computer on dispaly"
+                  width="200px"
+                />
+
+                <p id="description" class="card-text"></p>
+
+                <p id="price"></p>
+                <!-- 
+                <button id="add">Add to Cart</button> -->
+                <div class="position-absolute bottom-50 end-0">
+                  <a href="#" id="buybtn" class="btn btn-primary">Buy Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!--here is my JAVASCRIPT-->
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"
+      ></script>
+
+      <!--behavior for button-->
+    </div>
+  </body>
+</html>
