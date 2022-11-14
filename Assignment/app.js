@@ -1,6 +1,6 @@
 //declear variables - retrive value later
 const userElement = document.getElementById("person");
-const userCreditElement = document.getElementById("credit");
+let userCreditElement = document.getElementById("userCredit");
 const loanButtonElement = document.getElementById("loanbtn");
 
 const workElement = document.getElementById("work"); //
@@ -23,6 +23,14 @@ const descriptionElement = document.getElementById("description");
 
 const buyButtonElement = document.getElementById("buybtn");
 
+const repayButtonElement = document.getElementById("repayLoan");
+repayButtonElement.setAttribute("hidden", "hidden");
+
+const userLoanDivElement = document.getElementById("userLoan");
+userLoanDivElement.style = "display: none";
+
+const currentLoanElement = document.getElementById("currentLoan");
+
 //Get a loan - PROMPT
 // let getLoan = loanButtonElement;
 // prompt("Please enter an amount");
@@ -33,22 +41,50 @@ const buyButtonElement = document.getElementById("buybtn");
 // loanButtonElement.addEventListener("click", amount);
 
 //1) Get a loan button
+let credit = 200;
+let loan = 0;
+userCreditElement.innerHTML = credit.toLocaleString("no-NO", {
+  style: "currency",
+  currency: "Nok",
+});
 
-// let loanMoneyFromBank = function (addValuetoBalance) {
-//   loan += credit;
-//   document.getElementById("loanbtn").innerHTML = loan;
-// };
+let gotLoan = false;
 
-const loan = document.getElementById("loanbtn");
-loan.addEventListener("click", clicked);
+function takeLoan() {
+  let amount = parseInt(prompt("Enter an amount:"), 0);
 
-function clicked() {
-  prompt("Please enter an amount");
-  if (loan) {
-    console.log("you can get loan");
-  } else {
-    alert("You cannot get a loan more than double of your bank balance.");
+  amount = Number(amount);
+  let possibleLoan = credit * 2;
+  if (!isNaN(amount) && amount <= possibleLoan && !gotLoan) {
+    credit += amount;
+    loan += amount;
+    gotLoan = true;
+    console.log(amount);
+    userCreditElement.innerHTML = credit.toLocaleString("no-No", {
+      style: "currency",
+      currency: "Nok",
+    });
+    repayButtonElement.removeAttribute("hidden");
+    userLoanDivElement.style = "display: static";
+    currentLoanElement.innerText = loan.toLocaleString("no-No", {
+      style: "currency",
+      currency: "Nok",
+    });
+  } else if (gotLoan) {
+    alert("You already have a loan");
   }
+}
+
+function payLoan() {
+  if (income >= loan);
+  currentLoanElement.innerText = "";
+  income = income - loan;
+  gotLoan = false;
+  loan = 0;
+  balanceElement.innerHTML = income + " NOK";
+  userLoanDivElement.style = "display: none";
+
+  console.log("bwhahahaha");
 }
 
 //2) Work button - add 100 each click
@@ -60,14 +96,27 @@ function workWage() {
 }
 console.log(income);
 
-wageButtonElement.addEventListener("click", workWage);
-
 // 2.1) Bank button - transfer deposits from wage to balance and reset
 
-let add = function (valueToAdd) {
-  credit += income;
-  document.getElementById("credit").innerHTML = credit;
+let add = function () {
+  if (gotLoan) {
+    let deductionAmount = income / 10;
+    let transferAmount = income - deductionAmount;
+
+    credit += transferAmount;
+    gotLoan -= deductionAmount;
+  } else {
+    credit += income;
+  }
+  document.getElementById("userCredit").innerHTML = credit.toLocaleString(
+    "no-No",
+    {
+      style: "currency",
+      currency: "Nok",
+    }
+  );
 };
+
 let reset = function () {
   income = 0;
   document.getElementById("balance").innerHTML = income;
@@ -75,13 +124,6 @@ let reset = function () {
 
 const addMoney = document.getElementById("wage");
 const resetButton = document.getElementById("resetbtn");
-
-transferfromBankElement.addEventListener("click", function () {
-  add();
-});
-resetButton.addEventListener("click", function () {
-  reset("workWage");
-});
 
 //3) Computer selection
 fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
@@ -109,21 +151,16 @@ const addComputerToDisplay = (computers) => {
 
 const handleComputerDisplayChange = (e) => {
   const selectedComputer = computers[e.target.selectedIndex];
-  priceElement.innerText = selectedComputer.price + " kr";
-  descriptionElement.innerText = selectedComputer.description;
+  priceElement.innerHTML = selectedComputer.price + " kr";
+  descriptionElement.innerHTML = selectedComputer.description;
   imgElement.src =
     "https://noroff-komputer-store-api.herokuapp.com/" + selectedComputer.image;
   typeElement.innerHTML = selectedComputer.title;
 };
 
-computerElement.addEventListener("change", handleComputerDisplayChange);
-
 //3.1) Buy Button
 
 const handleCheckOut = document.getElementById("buybtn");
-handleCheckOut.addEventListener("click", checkOut);
-
-let credit = 200;
 
 function checkOut() {
   credit = credit;
@@ -132,8 +169,26 @@ function checkOut() {
     alert("You don't have enough money 🥹 ");
   } else {
     credit -= price;
-    document.getElementById("credit").innerHTML = credit;
+    document.getElementById("userCredit").innerHTML = credit.toLocaleString(
+      "no-No",
+      {
+        style: "currency",
+        currency: "Nok",
+      }
+    );
 
     alert("Hurray!! You are now the owner of this PC. 🥳 ");
   }
 }
+// Eventlistners here !!
+loanButtonElement.addEventListener("click", takeLoan);
+transferfromBankElement.addEventListener("click", function () {
+  add();
+});
+resetButton.addEventListener("click", function () {
+  reset("workWage");
+});
+computerElement.addEventListener("change", handleComputerDisplayChange);
+handleCheckOut.addEventListener("click", checkOut);
+wageButtonElement.addEventListener("click", workWage);
+repayButtonElement.addEventListener("click", payLoan);
